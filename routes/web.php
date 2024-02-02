@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\backend\AdminController;
 
 
 /*
@@ -31,4 +32,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-
+Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
