@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\backend\AdminController;
-use App\Http\Controllers\Backend\VendorController;
+
 
 /*
 |--------------------------------------------------------------------------
