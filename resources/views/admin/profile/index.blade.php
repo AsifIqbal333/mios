@@ -18,41 +18,66 @@
       <div class="row mt-sm-4">
         <div class="col-12 col-md-12 col-lg-12">
           <div class="card">
-            <form method="POST" class="needs-validation" novalidate="" action="{{ route('admin.profile.update') }}">
+            <form method="POST" class="needs-validation" novalidate="" action="{{ route('admin.profile.update') }}" enctype="multipart/form-data">
               @csrf
               <div class="card-header">
                 <h4>Edit Profile</h4>
               </div>
               <div class="card-body">
-                  <div class="row">                               
-                    <div class="form-group col-md-6 col-12">
-                      <label>Name</label>
-                      <input name="name" type="text" class="form-control" value="{{ Auth::user()->name }}" required="">
-                      <div class="invalid-feedback">
-                        Please fill in the name
-                      </div>
+                <div class="row">                               
+                  <div class="form-group col-md-6 col-12">
+                    <div class="mb-3">
+                      <img width="150px" src="{{ Auth::user()->image }}">
                     </div>
-                    <div class="form-group col-md-6 col-12">
-                      <label>User Name</label>
-                      <input name="username" type="text" class="form-control" value="{{ Auth::user()->username }}" required="">
-                      <div class="invalid-feedback">
-                        Please fill in the username
-                      </div>
-                    </div>
+                    <label>Image</label>
+                    <input name="profileImage" type="file" class="form-control">
+                    @if($errors->has('profileImage'))
+                      <code>
+                        {{ $errors->first('profileImage') }}
+                      </code>
+                    @endif
                   </div>
-                  <div class="row">
-                    <div class="form-group col-md-6 col-12">
-                      <label>Email</label>
-                      <input name="email" type="email" class="form-control" value="{{ Auth::user()->email }}" required="">
-                      <div class="invalid-feedback">
-                        Please fill in the email
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6 col-12">
-                      <label>Phone</label>
-                      <input name="phone" type="tel" class="form-control" value="{{ Auth::user()->phone }}">
-                    </div>
+                </div>
+                <div class="row">                               
+                  <div class="form-group col-md-6 col-12">
+                    <label>Name</label>
+                    <input name="name" type="text" class="form-control" value="{{ Auth::user()->name }}" required="">
+                    @if($errors->has('name'))
+                      <code>
+                        {{ $errors->first('name') }}
+                      </code>
+                    @endif
                   </div>
+                  <div class="form-group col-md-6 col-12">
+                    <label>User Name</label>
+                    <input name="username" type="text" class="form-control" value="{{ Auth::user()->username }}" required="">
+                      @if($errors->has('username'))
+                        <code>
+                          {{ $errors->first('username') }}
+                        </code>
+                      @endif
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6 col-12">
+                    <label>Email</label>
+                    <input name="email" type="email" class="form-control" value="{{ Auth::user()->email }}" required="">
+                    @if($errors->has('email'))
+                      <code>
+                        {{ $errors->first('email') }}
+                      </code>
+                    @endif
+                  </div>
+                  <div class="form-group col-md-6 col-12">
+                    <label>Phone</label>
+                    <input name="phone" type="tel" class="form-control" value="{{ Auth::user()->phone }}">
+                    @if($errors->has('phone'))
+                      <code>
+                        {{ $errors->first('phone') }}
+                      </code>
+                    @endif
+                  </div>
+                </div>
               </div>
               <div class="card-footer text-right">
                 <button class="btn btn-primary">Save Changes</button>

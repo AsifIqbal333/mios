@@ -6,6 +6,8 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
@@ -28,10 +30,28 @@ class ProfileController extends Controller
             'name'         =>  ['required', 'max:12'],
             'username'     =>  ['required', 'max:12'],
             'email'        =>  ['required','email',Rule::unique('users')->ignore(auth()->user())],
-            'phone'        =>  'required'
+            'phone'        =>  'required',
+            'profileImage' =>  ['image', 'max:2048'],
         ]);
         
+        if($request->hasFile('profileImage')){
+
+            /*Delete old admin profile image*/
+            $oldImage = Auth::user()->image;
+            if(File::exists(public_path($oldImage))){
+                File::delete(public_path($oldImage));
+            }
+            
+            $profileImage = $request->profileImage;
+            $imageName = rand() . '_' . $profileImage->getClientOriginalName();
+            $profileImage->move(public_path('uploads'),$imageName);
+            $imageName = '/uploads/'.$imageName;
+            $formFields['image'] = $imageName;
+
+        }
+
         $request->user()->update($formFields);
+
         return redirect()->back();
     }
 
