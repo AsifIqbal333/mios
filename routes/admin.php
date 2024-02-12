@@ -15,4 +15,5 @@ Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard'
 Route::prefix('profile')->name('profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('index');
     Route::post('/update', [ProfileController::class, 'update'])->name('update');
+    Route::post('/update/password', [ProfileController::class, 'updatePassword'])->name('updatePassword');
 });
