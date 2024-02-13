@@ -18,7 +18,8 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
-<!-- Start GA -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />  
+  <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -27,7 +28,11 @@
 
   gtag('config', 'UA-94034622-3');
 </script>
-<!-- /END GA --></head>
+
+<!-- /END GA -->
+
+</head>
+
 
 <body>
   <div id="app">
@@ -82,5 +87,35 @@
   <!-- Template JS File -->
   <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
   <script src="{{ asset('backend/assets/js/custom.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    @if (Session::has('message'))
+      var type = "{{ Session::get('alert-type', 'info') }}"
+      switch (type) {
+        case 'info':
+          toastr.options.timeOut = 10000;
+          toastr.info("{{ Session::get('message') }}");
+          break;
+        case 'success':
+          toastr.options.timeOut = 10000;
+          toastr.success("{{ Session::get('message') }}");
+          break;
+        case 'warning':
+          toastr.options.timeOut = 10000;
+          toastr.warning("{{ Session::get('message') }}");
+          break;
+        case 'error':
+            toastr.options.timeOut = 10000;
+            toastr.error("{{ Session::get('message') }}");
+            break;
+      }
+    @endif
+
+    @if($errors->any())
+      @foreach ($errors->all() as $error)
+        toastr.error("{{$error}}")
+      @endforeach
+    @endif
+  </script>
 </body>
 </html>

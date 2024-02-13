@@ -90,11 +90,6 @@
       <div class="row mt-sm-4">
         <div class="col-12 col-md-12 col-lg-12">
           <div class="card">
-          @if($errors->any())
-            @foreach ($errors->all() as $error)
-              <span class="alert alert-danger">{{ $error }}</span>
-            @endforeach
-          @endif
             <form method="POST"  novalidate="" action="{{ route('admin.profile.updatePassword') }}">
               @csrf
               <div class="card-header">

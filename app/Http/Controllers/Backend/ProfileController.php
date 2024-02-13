@@ -51,7 +51,13 @@ class ProfileController extends Controller
         }
 
         $request->user()->update($formFields);
-        return redirect()->back();
+        
+        $notification = array(
+            'message' => 'Profile Updated Successfully.',
+            'alert-type' => 'success'
+        );
+        //toastr()->success($notification);
+        return redirect()->back()->with($notification);
     }
 
         /**
@@ -68,7 +74,12 @@ class ProfileController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Password Updated Successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
     }
 
 
