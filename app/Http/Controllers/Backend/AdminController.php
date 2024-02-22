@@ -15,7 +15,7 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    //Shows the admin dlogin form
+    //Shows the admin login form
     public function login(){
         return view('admin.auth.login');
     }
